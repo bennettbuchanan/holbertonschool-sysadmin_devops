@@ -1,1 +1,2 @@
 #!/bin/bash
+sed 10q /etc/passwd
