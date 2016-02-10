@@ -1,1 +1,5 @@
-#!/bin/bash
+1. I will need to create a public and private key pair using the command ssh-keygen.
+
+2. I should give the public key to the administrator who has access to the sandbox server. They will add it to the file authorized_keys which will then grant me access to the server when connecting from my computer with the corresponding private key pair.
+
+3. The private key should be stored on the computer that I wish to connect to the server from from (in ~/.ssh). It will be used to verify that I have the correct private key for the corresponding public key that is currently on the remote server. Having this on my computer will then allow me to use the ssh command to connect to the remote server.
