@@ -16,7 +16,6 @@ case "$2" in
 	*)
 esac
 
-ssh admin@158.69.92.186
 scp ./$FIRSTWORD admin@158.69.92.186:/var/www/html/
 
 echo "Listen to the message on" $3"/"$FIRSTWORD 
