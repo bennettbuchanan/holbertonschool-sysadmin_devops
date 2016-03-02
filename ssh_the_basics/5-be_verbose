@@ -1,1 +1,1 @@
-ssh -v -v -v
+ssh -vvv
