@@ -1,2 +1,2 @@
 #!/bin/bash
-ssh admin@158.69.92.186
+awk '{print $1, $9}' $1
