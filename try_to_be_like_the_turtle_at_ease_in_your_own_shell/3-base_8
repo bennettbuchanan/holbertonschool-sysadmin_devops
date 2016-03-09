@@ -1,1 +1,14 @@
 #!/bin/bash
+NUM1BASE8=$"ibase=8; $NUM1" | bc 
+NUM2BASE8=$"ibase=8; $NUM1" | bc 
+
+TOTAL=$(($NUM1BASE8+$NUM2BASE8))
+echo $TOTAL
+
+convert numbers to base8
+echo "ibase=8; 722" | bc
+echo "ibase=8; 415" | bc
+add result
+echo $((466+269))
+convert sum to base8
+echo "obase=8; 735" | bc
