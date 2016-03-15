@@ -1,2 +1,2 @@
 #!/bin/bash
-NUM1BASE8=$((8#${NUM1})) NUM2BASE8=$((8#${NUM2})) TOTAL=$((${NUM1BASE8}+${NUM2BASE8})) RESULT=$((8#${TOTAL})) printf %o $TOTAL; echo
+NUM1BASE8=$((8#${NUM1})); NUM2BASE8=$((8#${NUM2})); TOTAL=$((${NUM1BASE8}+${NUM2BASE8})); printf "%o\n" $TOTAL
