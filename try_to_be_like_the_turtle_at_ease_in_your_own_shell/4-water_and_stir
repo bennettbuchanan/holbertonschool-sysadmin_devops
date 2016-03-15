@@ -1,1 +1,2 @@
 #!/bin/bash
+WATER_VAR=`echo $WATER | tr water 01234`; STIR_VAR=`echo $STIR | tr stir. 01234`; STIR_DEC=`echo "obase=10;ibase=5;$STIR_VAR" | bc`; WATER_DEC=`echo "obase=10;ibase=5;$WATER_VAR" | bc`; DEC_TOTAL=$((${STIR_DEC}+${WATER_DEC})); TOTAL_BASE8=`echo "obase=8;ibase=10;$DEC_TOTAL" | bc`; OUTPUT=`echo $TOTAL_BASE8 | tr 01234567 behlnort`; echo $OUTPUT
