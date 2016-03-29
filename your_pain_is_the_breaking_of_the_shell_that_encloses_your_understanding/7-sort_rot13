@@ -1,2 +1,2 @@
 #!/bin/bash
-cut -d: -f1 /etc/passwd
+value=$(cut -d: -f1 /etc/passwd) && rot13=$(echo "$value" | tr '[A-Za-z]' '[N-ZA-Mn-za-m]') && sorted=$(echo "$rot13" | sort) && echo "$sorted" | tr '[A-Za-z]' '[N-ZA-Mn-za-m]'
