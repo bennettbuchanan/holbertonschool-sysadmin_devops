@@ -1,1 +1,2 @@
 #!/bin/bash
+value=$(<quote) && echo "$value" | tr '[A-Za-z]' '[N-ZA-Mn-za-m]'
