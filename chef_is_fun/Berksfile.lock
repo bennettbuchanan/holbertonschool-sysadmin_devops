@@ -1,0 +1,24 @@
+DEPENDENCIES
+  holberton-wrapper
+    path: cookbooks/holberton-wrapper
+
+GRAPH
+  build-essential (6.0.3)
+    compat_resource (>= 12.10)
+    mingw (>= 1.1)
+    seven_zip (>= 0.0.0)
+  chef_handler (1.4.0)
+  compat_resource (12.10.7)
+  cpu (0.2.0)
+  haproxy (1.6.7)
+    build-essential (>= 0.0.0)
+    cpu (>= 0.2.0)
+  holberton-wrapper (0.1.0)
+    haproxy (~> 1.6.7)
+  mingw (1.2.4)
+    compat_resource (>= 0.0.0)
+    seven_zip (>= 0.0.0)
+  seven_zip (2.0.1)
+    windows (>= 1.2.2)
+  windows (1.44.1)
+    chef_handler (>= 0.0.0)

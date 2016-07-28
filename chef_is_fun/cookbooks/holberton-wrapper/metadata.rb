@@ -1,0 +1,8 @@
+name             'holberton-wrapper'
+maintainer       'Bennett Buchanan'
+maintainer_email 'bennett.buchanan@holbertonschool.com'
+license          'All rights reserved'
+description      'Installs/Configures holberton-wrapper'
+long_description 'Installs/Configures holberton-wrapper'
+version          '0.1.0'
+depends 'haproxy', '~> 1.6.7'
