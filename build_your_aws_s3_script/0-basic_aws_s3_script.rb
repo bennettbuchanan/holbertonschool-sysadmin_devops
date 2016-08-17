@@ -50,12 +50,30 @@ end
 options = AWS_parser.parse(ARGV)
 config = YAML.load_file('config.yaml')
 
-# s3 = AWS::S3.new
-# obj = s3.buckets['buchananbucket'].objects['key']
+s3 = Aws::S3::Client.new({
+                           region: 'us-west-2',
+                           access_key_id: config['access_key_id'],
+                           secret_access_key: config['secret_access_key']
+                         })
 
 case options.action
 when "list"
-  pp "Action: list"
+  resp = s3.list_buckets
+  pp resp.buckets.map(&:name)
+
+  s3_resource = Aws::S3::Resource.new({
+                                        region: 'us-west-2',
+                                        access_key_id: config['access_key_id'],
+                                        secret_access_key: config['secret_access_key']
+                                      })
+
+  # reference an existing bucket by name
+  bucket = s3_resource.bucket(options.bucketname)
+
+  # enumerate every object in a bucket
+  bucket.objects.each do |obj|
+    puts "#{obj.key} => #{obj.etag}"
+  end
 
 when "upload"
   pp "Action: upload"
