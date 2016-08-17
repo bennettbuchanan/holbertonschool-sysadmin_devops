@@ -29,9 +29,9 @@ class AWS_parser
         options.bucketname = b
       end
 
-      opts.on("-fFILE_PATH", "--filename=FILE_PATH",
+      opts.on("-fFILE_PATH", "--filepath=FILE_PATH",
               "Path to the file to upload") do |f|
-        options.filename = f
+        options.filepath = f
       end
 
       opts.on("-aACTION", "--action=ACTION",
@@ -42,7 +42,7 @@ class AWS_parser
     end
 
     opt_parser.parse!(args)
-    options
+    pp options
   end
 
 end
@@ -56,32 +56,44 @@ s3 = Aws::S3::Client.new({
                            secret_access_key: config['secret_access_key']
                          })
 
+s3_resource = Aws::S3::Resource.new({
+                                      region: 'us-west-2',
+                                      access_key_id: config['access_key_id'],
+                                      secret_access_key: config['secret_access_key']
+                                    })
+
+# reference an existing bucket by name
+bucket = s3_resource.bucket(options.bucketname)
+
 case options.action
 when "list"
-  resp = s3.list_buckets
-  pp resp.buckets.map(&:name)
-
-  s3_resource = Aws::S3::Resource.new({
-                                        region: 'us-west-2',
-                                        access_key_id: config['access_key_id'],
-                                        secret_access_key: config['secret_access_key']
-                                      })
-
-  # reference an existing bucket by name
-  bucket = s3_resource.bucket(options.bucketname)
-
   # enumerate every object in a bucket
   bucket.objects.each do |obj|
     puts "#{obj.key} => #{obj.etag}"
   end
 
 when "upload"
-  pp "Action: upload"
+  bucket.put_object({
+                      body: options.filepath,
+                      # Update keyname to be file in path.
+                      key: options.filepath.split(File::SEPARATOR)[-1]
+                    })
+
+  pp options.filepath.split(File::SEPARATOR)[-1]
 
 when "delete"
-  pp "Action: delete"
+  bucket.delete_objects({
+                          delete: {
+                            objects: [
+                              {
+                                key: options.filepath.split(File::SEPARATOR)[-1],
+                              },
+                            ],
+                          },
+                        })  
 
 when "download"
-  pp "Action: download"
-
+  
+  options.filepath.split(File::SEPARATOR)[-1]
+  
 end
