@@ -39,10 +39,14 @@ class AWS_parser
         options.action = a
       end
 
+      opts.on("--print_opts") do |p|
+        puts opts
+      end
+      
     end
 
     opt_parser.parse!(args)
-    pp options
+    options
   end
 
 end
@@ -95,5 +99,11 @@ when "delete"
 when "download"
   
   options.filepath.split(File::SEPARATOR)[-1]
+
+else
+
+  AWS_parser.parse %w[--print_opts]
   
 end
+
+
