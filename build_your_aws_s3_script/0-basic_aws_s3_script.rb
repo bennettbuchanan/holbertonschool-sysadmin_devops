@@ -78,7 +78,7 @@ when "list"
 
 when "upload"
   bucket.put_object({
-                      body: options.filepath,
+                      body: File.read(options.filepath),
                       # Update keyname to be file in path.
                       key: options.filepath.split(File::SEPARATOR)[-1]
                     })
@@ -97,13 +97,14 @@ when "delete"
                         })  
 
 when "download"
-  
-  options.filepath.split(File::SEPARATOR)[-1]
+  # Create the object to retrieve
+  obj = s3_resource.bucket(options.bucketname).object(options.filepath.split(File::SEPARATOR)[-1])
 
+  # Get the item's content and save it to a file
+  obj.get(response_target: options.filepath.split(File::SEPARATOR)[-1])
+  
 else
 
   AWS_parser.parse %w[--print_opts]
-  
+
 end
-
-
