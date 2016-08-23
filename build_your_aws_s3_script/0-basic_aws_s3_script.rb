@@ -37,12 +37,12 @@ class AWS_parser
       opts.on("-aACTION", "--action=ACTION",
               "Select action to perform [list, upload, delete, download]") do |a|
         options.action = a
+
+        if a == "print_opts"
+          puts opts
+        end
       end
 
-      opts.on("--print_opts") do |p|
-        puts opts
-      end
-      
     end
 
     opt_parser.parse!(args)
@@ -55,13 +55,13 @@ options = AWS_parser.parse(ARGV)
 config = YAML.load_file('config.yaml')
 
 s3 = Aws::S3::Client.new({
-                           region: 'us-west-2',
+                           region: config['region'],
                            access_key_id: config['access_key_id'],
                            secret_access_key: config['secret_access_key']
                          })
 
 s3_resource = Aws::S3::Resource.new({
-                                      region: 'us-west-2',
+                                      region: config['region'],
                                       access_key_id: config['access_key_id'],
                                       secret_access_key: config['secret_access_key']
                                     })
@@ -83,8 +83,6 @@ when "upload"
                       key: options.filepath.split(File::SEPARATOR)[-1]
                     })
 
-  pp options.filepath.split(File::SEPARATOR)[-1]
-
 when "delete"
   bucket.delete_objects({
                           delete: {
@@ -94,7 +92,7 @@ when "delete"
                               },
                             ],
                           },
-                        })  
+                        })
 
 when "download"
   # Create the object to retrieve
@@ -102,9 +100,9 @@ when "download"
 
   # Get the item's content and save it to a file
   obj.get(response_target: options.filepath.split(File::SEPARATOR)[-1])
-  
+
 else
 
-  AWS_parser.parse %w[--print_opts]
+  AWS_parser.parse %w[-a print_opts]
 
 end
